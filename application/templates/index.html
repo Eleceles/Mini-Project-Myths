@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div>
+    {% for location in all_location %}
+<div> 
+    <h5>{{location.name}}</h5>
+    <div>
+        <a href="{{ url_for('update_location') }}">Edit</a>
+        <a href="{{ url_for('delete_location', id=location.id) }}">Delete</a>
+    </div>
+    {% for myth in location.myths%}
+    <p>{{myth.name}}</p>
+    <p>{{myth.character}}</p>
+    <p>{{myth.story}}</p>
+    {%endfor%}
+</div>
+{%endfor%}
+
+{% endblock body %} 
+

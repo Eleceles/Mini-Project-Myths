@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<form action="/create/myth" method="POST">
+
+    Name:
+    {{ form.name }}
+    <div>
+
+    Character:
+    {{ form.character }}
+    <br>
+
+    Story:
+    {{ form.story }}
+    <br>
+
+    Location:
+    {{ form.location }}
+    <br>   
+    {{form.submit}}
+</form>
+
+{% endblock body %}
