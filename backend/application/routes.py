@@ -19,7 +19,7 @@ def create_myth(location_id):
         return f"Myth '{new_myth.name}' added to database"
 
 @app.route('/read/allLocations', methods=["GET"])
-def read_all_locations():
+def read_location():
     all_locations = Location.query.all()
     json = {"locations": []}
     for location in all_locations:
@@ -32,7 +32,7 @@ def read_all_locations():
 
 
 @app.route('/read/allMyths', methods=["GET"])
-def read_all_myths():
+def read_myths():
     all_myths = Location.query.all()
     json = {"myths": []}
     for myth in all_myths:
@@ -72,10 +72,10 @@ def update_myth(id):
 def delete_location(id):
     location = Location.query.get(id)
     db.session.delete(location)
-    return f"updated a location:{location.name}"
+    return f"Deleted a location:{location.name}"
 
 @app.route('/delete/myth/<int:id>')
 def delete_myth(id):
     myth = Myth.query.get(id)
     db.session.delete('myth')
-    return f"updated a myth:{myth.name}"
+    return f"Deleted a myth:{myth.name}"

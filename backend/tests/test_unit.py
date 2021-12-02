@@ -22,61 +22,73 @@ class TestBase(TestCase):
         app.config.update(DEBUG=True, WTF_CSRF_ENABLED=False)
         return app
     def setUp(self):
-        # Will be called before every test
         db.create_all()
         db.session.add(Myth(name="Run unit tests", character="Run unit tests", story="Run unit tests"))
         db.session.commit()
 
     def tearDown(self):
-        # Will be called after every test
         db.session.remove()
         db.drop_all()
 
 
 class TestRead(TestBase):
 
+    def test_read_all_location(self):
+        response = self.client.get(url_for('test_location', id=1)
+        all_locations = { "location": [test_location]}
+        self.assertEquals(all_location,response.json)
+    
+    def test_read_location(self):
+        response = self.client.get(url_for('read_location', id=1))
+        self.assertEquals(test_location, response.json)
+
     def test_read_all_myths(self):
-        response = self.client.get(url_for('read_myths'))
+        response = self.client.get(url_for('test_myths', id=1))
         all_myths = {"myts":[test_myth]}                  
         self.assertEquals(all_myths, response.json)
     
     def test_read_myth(self):
-        response = self.client.get(url_for('read_myth'))
-        self.assertIn(b"Run unit tests", response.data)
-
-    def test_read_home_location(self):
-        response = self.client.get(url_for('home'))
-        self.assertIn(b"Run unit tests", response.data)
+        response = self.client.get(url_for('read_myth', id=1))
+        self.assertEquals(test_myth, response.json)
     
-    def test_read_location_dictionary(self):
-        response = self.client.get(url_for('read_myth'))
-        self.assertIn(b"Run unit tests", response.data)
 
 class TestCreate(TestBase):
-    def test_create_myth(self):
-        response = self.client.post(url_for('create_myth'), data={"name": "Testing create funtionality", "character": "Testing create funtionality", "story": "Testing create funtionality"}, follow_redirects=True)
-        self.assertIn(b"Testing create funtionality", response.data)
-    
-    def test_create_location(self):
-        response = self.client.post(url_for('create_location'), data={"name": "Testing create funtionality"}, follow_redirects=True)
-        self.assertIn(b"Testing create funtionality", response.data)
 
-class Testupdate(TestBase):
-    def test_update_myth(self):
-        response = self.client.post(url_for('update_myth', id=1), data={"name": "Testing create funtionality", "character": "Testing create funtionality", "story": "Testing create funtionality"}, follow_redirects=True)
-        self.assertIn(b"Testing update funtionality", response.data)
-    
+    def test_create_location(self):
+        response = self.client.post(url_for('create_location'), json={"name": "Testing create funtionality"}, follow_redirects=True)
+        self.assertEquals(b"Location '{new_location.name}' added to database:Testing create funtionality", response.data)
+        self.assertEquals(Location.query.get(2).description, "Testing create fuctionality")
+   
+    def test_create_myth(self):
+        response = self.client.post(url_for('create_myth'), json={"name": "Testing create funtionality", "character": "Testing create funtionality", "story": "Testing create funtionality"}, follow_redirects=True)
+        self.assertEquals(b"Myth '{new_myth.name}' added to database:Testing create funtionality", response.data)
+        self.assertEquals(Myth.query.get(2).description, "Testing create fuctionality")
+   
+
+class Testupdate(TestBase):  
     def test_update_location(self):
-        response = self.client.post(url_for('update_location', id=1), data={"name": "Testing create funtionality"}, follow_redirects=True)
-        self.assertIn(b"Testing update funtionality", response.data)
+        response = self.client.post(
+            url_for('update_location', id=1),
+            json={"name": "Testing update funtionality"}, follow_redirects=True)
+            self.assertEquals(b"updated a location:{location.name}: Testing update funtionality", response.data)
+
+def test_update_myth(self):
+        response = self.client.post(url_for('update_myth', id=1),
+        json={"name": "Testing create funtionality",
+         "character": "Testing create funtionality",
+         "story": "Testing create funtionality"}
+        self.assertEquals(b" updated a myth:{myth.name}: Testing update funtionality", response.data)
+
 
 class TestDelete(TestBase):
-    def test_delete_myth(self):
-        response = self.client.get(url_for('delete_myth', id=1), follow_redirects=True)
-        self.assertNotIn(b"Run unit tests", response.data)
-    
-    def test_delete_location(self):
-        response = self.client.get(url_for('delete_location', id=1), follow_redirects=True)
-        self.assertNotIn(b"Run unit tests", response.data)
 
+    def test_delete_location(self):
+        response = self.client.get(url_for('delete_location', id=1),
+        self.assertEquals(b"Deleted a location:{location.name}", response.data)
+        self.assertNotIn(Location.query.get(1))
+        
+    def test_delete_myth(self):
+        response = self.client.get(url_for('delete_myth', id=1)
+        self.assertEquals(b"Deleted a myth:{location.name}", response.data)
+        self.assertNotIn(Myth.query.get(1))
     

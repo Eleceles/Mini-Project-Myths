@@ -41,7 +41,7 @@ def create_myth():
 @app.route('/update/location/<int:id>',  methods=['GET','POST'])
 def update_location():
     form = LocationForm()
-    location = requests.put(f"http://{backend_host}/read/location/{id}").json()
+    location = requests.put(f"http://{backend_host}/update/location/{id}").json()
     app.logger.info(f"Location: {location}")
     if request.method=="POST": 
        response = requests.post(f"http://{backend_host}/create/location",
@@ -65,7 +65,6 @@ def update_myth():
 def delete_location(id):
     response = requests.delete(f"http://{backend_host}/delete/location/{id}")
     app.logger.info(f"Response: {response.text}")
-    db.session.commit()
     return redirect(url_for('home'))
     
 
