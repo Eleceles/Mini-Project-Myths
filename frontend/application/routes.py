@@ -8,7 +8,6 @@ backend_host = "mini-app_backend:5000"
 
 @app.route('/', methods=["GET"])
 def home(): 
-    def home():
     locations = requests.get(f"http://{backend_host}/get/allLocations").json()["Locations"]
     return render_template("index.html", title="Home", locations=locations)
 

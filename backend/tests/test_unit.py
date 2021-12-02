@@ -25,6 +25,7 @@ class TestBase(TestCase):
             WTF_CSRF_ENABLED=False
         )
         return app
+        
     def setUp(self):
         db.create_all()
         db.session.add(Myth(name="Run unit tests", character="Run unit tests", story="Run unit tests"))
