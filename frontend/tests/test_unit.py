@@ -23,9 +23,11 @@ class TestBase(TestCase):
 
      def create_app(self):
         app.config.update(
+            SQLALCHEMY_DATABASE_URI='sqlite:///',
             DEBUG=True,
             WTF_CSRF_ENABLED=False
         )
+        return app
 
 class TestViews(TestBase):
     def test_home_get(self):

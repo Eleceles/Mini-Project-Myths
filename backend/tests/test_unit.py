@@ -19,7 +19,11 @@ test_data={"id": 1,"name": "Test Location 1","myths": [
 
 class TestBase(TestCase):
     def create_app(self):
-        app.config.update(DEBUG=True, WTF_CSRF_ENABLED=False)
+        app.config.update(
+            SQLALCHEMY_DATABASE_URI='sqlite:///',
+            DEBUG=True,
+            WTF_CSRF_ENABLED=False
+        )
         return app
     def setUp(self):
         db.create_all()
