@@ -4,7 +4,7 @@ from application.models import Myth, Location
 from flask import render_template, request, redirect, url_for, jsonify
 import request
 
-backend_host = "mini-app:5000"
+backend_host = "mini-app_backend:5000"
 
 @app.route('/', methods=["GET"])
 def home(): 
