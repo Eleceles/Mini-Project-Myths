@@ -1,8 +1,8 @@
 from application import app, db
 from application.forms import LocationForm, MythForm
-from application.models import Myth, Location
+#from application.models import Myth, Location
 from flask import render_template, request, redirect, url_for, jsonify
-import request
+#import request
 
 backend_host = "mini-app_backend:5000"
 
@@ -17,7 +17,7 @@ def create_location():
     form = LocationForm()
     if request.method=="POST":
         response = requests.post(f"http://{backend_host}/create/location",
-            json={"name"=request.form.name.data})
+            json={"name": request.form.name.data})
         app.logger.info(f"Response: {response.text}")   
         return redirect(url_for('home'))
     return render_template('create_location.html',title="Add a location", form=form)
@@ -31,7 +31,7 @@ def create_myth():
         form.location.choices.append((location.id,location.name))  
     if request.method=="POST":
         response = requests.post(f"http://{backend_host}/create/location",
-            json={"name"=request.form.name.data, "character"=request.form.character.data,"story"=request.form.story.data})
+            json={"name": request.form.name.data, "character": request.form.character.data,"story": request.form.story.data})
         app.logger.info(f"Response: {response.text}")
         return redirect(url_for('home'))
     return render_template('create_myth.html', title="Add a myth",  form=form)
@@ -44,7 +44,7 @@ def update_location():
     app.logger.info(f"Location: {location}")
     if request.method=="POST": 
        response = requests.post(f"http://{backend_host}/create/location",
-            json={"name"=request.form.name.data})
+            json={"name": request.form.name.data})
        return redirect(url_for('home'))
     return render_template('update_location.html', location=location, form=form)
 
@@ -55,7 +55,7 @@ def update_myth():
     app.logger.info(f"Myth: {location}")
     if request.method == "POST": 
        response = requests.post(f"http://{backend_host}/create/location",
-            json={"name"=request.form.name.data, "character"=request.form.character.data,"story"=request.form.story.data})
+            json={"name": request.form.name.data, "character": request.form.character.data,"story": request.form.story.data})
        return redirect(url_for('home'))
     return render_template('update_myth.html', myth=myth, form=form)
 
