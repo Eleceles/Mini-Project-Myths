@@ -1,14 +1,14 @@
 from application import app, db
 from application.forms import LocationForm, MythForm
-#from application.models import Myth, Location
 from flask import render_template, request, redirect, url_for, jsonify
-#import request
+import requests
+
 
 backend_host = "mini-app_backend:5000"
 
 @app.route('/', methods=["GET"])
 def home(): 
-    locations = requests.get(f"http://{backend_host}/get/allLocations").json()["Locations"]
+    locations = requests.get(f"http://{backend_host}/get/allLocations").json()["locations"]
     return render_template("index.html", title="Home", locations=locations)
 
 
