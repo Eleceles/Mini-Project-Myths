@@ -32,7 +32,7 @@ def read_location():
 
 
 @app.route('/read/allMyths', methods=["GET"])
-def read_myths():
+def read_all_myths():
     all_myths = Location.query.all()
     json = {"myths": []}
     for myth in all_myths:
