@@ -8,7 +8,7 @@ backend_host = "mini-app_backend:5000"
 
 @app.route('/', methods=["GET"])
 def home(): 
-    locations = requests.get(f"http://{backend_host}/get/allLocations").json()["locations"]
+    locations = requests.get(f"http://{backend_host}/read/allLocations").json()["locations"]
     return render_template("index.html", title="Home", locations=locations)
 
 
@@ -17,7 +17,7 @@ def create_location():
     form = LocationForm()
     if request.method=="POST":
         response = requests.post(f"http://{backend_host}/create/location",
-            json={"name": request.form.name.data})
+            json={"name": form.name.data})
         app.logger.info(f"Response: {response.text}")   
         return redirect(url_for('home'))
     return render_template('create_location.html',title="Add a location", form=form)
@@ -31,7 +31,7 @@ def create_myth():
         form.location.choices.append((location.id,location.name))  
     if request.method=="POST":
         response = requests.post(f"http://{backend_host}/create/location",
-            json={"name": request.form.name.data, "character": request.form.character.data,"story": request.form.story.data})
+            json={"name": form.name.data, "character": form.character.data,"story": form.story.data})
         app.logger.info(f"Response: {response.text}")
         return redirect(url_for('home'))
     return render_template('create_myth.html', title="Add a myth",  form=form)
@@ -43,7 +43,7 @@ def update_location():
     location = requests.put(f"http://{backend_host}/update/location/{id}").json()
     app.logger.info(f"Location: {location}")
     if request.method=="POST": 
-       response = requests.post(f"http://{backend_host}/create/location",
+       response = requests.post(f"http://{backend}/create/location",
             json={"name": request.form.name.data})
        return redirect(url_for('home'))
     return render_template('update_location.html', location=location, form=form)

@@ -1,7 +1,7 @@
 from application import db
 
 class Myth(db.Model):
-    __tablename__ = 'myths'
+    # __tablename__ = 'myths'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(45), unique=True)
     character = db.Column(db.String(80), nullable=False)
@@ -10,7 +10,7 @@ class Myth(db.Model):
 
 
 class Location(db.Model):
-    __tablename__ = 'locations'
+    # __tablename__ = 'locations'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(45), unique=True)
     myths = db.relationship("Myth")

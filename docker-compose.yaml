@@ -3,7 +3,7 @@ services:
   frontend:
     build: ./frontend
     image: ${DOCKER_HUB_CREDS_USR}/mini-app-frontend:latest
-    container_name: mini-app-frontend
+    container_name: mini-app_frontend
     ports:
     - target: 5000
       published: 80
@@ -12,7 +12,7 @@ services:
       replicas: 1
     build: ./backend
     image: ${DOCKER_HUB_CREDS_USR}/mini-app-backend:latest
-    container_name: mini-app-backend
+    container_name: mini-app_backend
     environment:
       DATABASE_URI:
       CREATE_SCHEMA:

@@ -1,6 +1,6 @@
 from application import app, db
 from application.models import Myth, Location
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, jsonify
   
 @app.route('/create/location/<int:id>', methods=['POST'])
 def create_location():
