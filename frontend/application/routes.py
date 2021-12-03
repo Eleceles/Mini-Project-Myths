@@ -9,15 +9,15 @@ backend_host = "mini-app_backend:5000"
 @app.route('/')
 @app.route('/home')
 def home(): 
-    locations = requests.get(f"http://{backend_host}/read/allLocations").json()["locations"]
-    app.logger.info(f"Locations: {locations}")
+    locations = requests.get(f"http://{backend_host}/get/allLocations").json()["locations"]
+    #app.logger.info(f"Locations: {locations}")
     return render_template("index.html", title="Home", locations=locations)
 
 
 @app.route('/create/location', methods=['GET', 'POST'])
 def create_location():
     form = LocationForm()
-    if request.method=="POST":
+    if request.method == "POST":
         response = requests.post(f"http://{backend_host}/create/location",
             json={"name": form.name.data})
         app.logger.info(f"Response: {response.text}")   
@@ -29,7 +29,7 @@ def create_location():
 def create_myth():
     form = MythForm()
 
-    json = requests.get(f"http://{backend_host}/read/allLocations").json()
+    json = requests.get(f"http://{backend_host}/get/allLocations").json()
     for location in json["locations"]:
         form.location.choices.append((location["id"], location["name"]))  
 

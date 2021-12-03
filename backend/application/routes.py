@@ -1,26 +1,26 @@
 from application import app, db
 from application.models import Myth, Location
-from flask import render_template, request, redirect, url_for, jsonify
+from flask import render_template, request, redirect, url_for, jsonify 
   
 @app.route('/create/location/<int:id>', methods=['POST'])
 def create_location():
-        package = request.json
-        new_location = Location(name=package["name"])
+        json = request.json
+        new_location = Location(name = json["name"])
         db.session.add(new_location)
         db.session.commit()  
         return f"Location '{new_location.name}' added to database"
 
-@app.route('/create/myth/<int:location_id>', methods=['POST'])
-def create_myth(location_id):
+@app.route('/create/myth/<int:id>', methods=['POST'])
+def create_myth():
         package = request.json()
         new_myth = Myth(name = package["name"], character = package["character"], story = package["story"], location_id=location_id)
         db.session.add(new_myth)
         db.session.commit()
         return f"Myth '{new_myth.name}' added to database"
 
-@app.route('/read/allLocations', methods=["GET"])
-def read_allLocations():
-    all_locations = Locations.query.all()
+@app.route('/get/allLocations', methods=["GET"])
+def get_all_locations():
+    all_locations = Location.query.all()
     json = {"locations": []}
     for location in all_locations:
         myths = []
@@ -32,7 +32,7 @@ def read_allLocations():
 
 
 @app.route('/read/allMyths', methods=["GET"])
-def read_all_myths():
+def read_allmyths():
     all_myths = Myths.query.all()
     json = {"myths": []}
     for myth in all_myths:
@@ -49,12 +49,10 @@ def read_all_myths():
 #         "story": myth.story})
 #     return jsonify(json)   
 
-@app.route('/read/location/<int:id>/myths', methods=["GET"])
-def read_myths(id):
-    myths = Location.query.get(id).myths
-    json = {"myths": []}
-    for myth in myths:
-        json["myths"].append({"id": myth.id,"name": myth.name,
+@app.route('/read/myth/<int:id>', methods=["GET"])
+def read_myth(id):
+    myth = Myths.query.get(id)
+    json = ["myths"].append({"id": myth.id,"name": myth.name,
         "location_id": myth.location_id,"character": myth.character,
         "story": myth.story})
     return jsonify(json)   
