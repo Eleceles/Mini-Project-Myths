@@ -26,7 +26,6 @@ def create_location():
 @app.route('/create/myth', methods=['GET','POST'])
 def create_myth():
     form = MythForm()
-    locations = Location.query.all()
     json = requests.get(f"http://{backend_host}/get/allLocations").json()
     for location in json["locations"]:
         form.location.choices.append((location["id"], location["name"]))  
