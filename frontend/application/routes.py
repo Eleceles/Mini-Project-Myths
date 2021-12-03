@@ -27,10 +27,12 @@ def create_location():
 def create_myth():
     form = MythForm()
     locations = Location.query.all()
-    for location in locations:
-        form.location.choices.append((location.id,location.name))  
-    if request.method=="POST":
-        response = requests.post(f"http://{backend_host}/create/location",
+    json = requests.get(f"http://{backend_host}/get/allLocations").json()
+    for location in json["locations"]:
+        form.location.choices.append((location["id"], location["name"]))  
+
+    if request.method == "POST":
+        response = requests.post(f"http://{backend_host}/create/location/{form.location.data}",
             json={"name": form.name.data, "character": form.character.data,"story": form.story.data})
         app.logger.info(f"Response: {response.text}")
         return redirect(url_for('home'))
