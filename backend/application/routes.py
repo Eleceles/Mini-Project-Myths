@@ -4,7 +4,7 @@ from flask import render_template, request, redirect, url_for, jsonify
   
 @app.route('/create/location/<int:id>', methods=['POST'])
 def create_location():
-        json = request.json
+        package = request.json
         new_location = Location(name=package["name"])
         db.session.add(new_location)
         db.session.commit()  
