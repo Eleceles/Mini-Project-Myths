@@ -59,24 +59,24 @@ def read_myth(id):
 
 
         
-@app.route('/update/location/<int:id>',  methods=['GET','POST'])
-def update_location(id):
-    package = request.json
-    location = Location.query.get(id)
-    location.name = package["name"]
-    db.session.commit()
-    return f"updated a location:{location.name}"
+# @app.route('/update/location/<int:id>',  methods=['GET','POST'])
+# def update_location(id):
+#     package = request.json
+#     location = Location.query.get(id)
+#     location.name = package["name"]
+#     db.session.commit()
+#     return f"updated a location:{location.name}"
     
 
-# @app.route('/update/myth/<int:id>', methods=["POST"])
-# def update_myth(id):
-#     package = reaquest.json
-#     myth = Myth.query.get(id)
-#     myth.name = form.name.data
-#     myth.character = form.character.data
-#     myth.story = form.story.data
-#     db.session.commit()
-#     return f"updated a myth:{myth.name}"
+@app.route('/update/myth/<int:id>', methods=["POST"])
+def update_myth(id):
+    package = reaquest.json
+    myth = Myth.query.get(id)
+    myth.name = form.name.data
+    myth.character = form.character.data
+    myth.story = form.story.data
+    db.session.commit()
+    return f"updated a myth:{myth.name}"
     
 
 @app.route('/delete/location/<int:id>')

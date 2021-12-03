@@ -6,7 +6,7 @@
             body {
               background-color: rgb(185, 239, 255);
               text-align: central;
-              color: rgb(26, 10, 85);
+              color: rgb(94, 43, 8);
               font-family: Arial, Helvetica, sans-serif;
             }
             </style>
@@ -15,8 +15,8 @@
         <h1>Myths {{ title }}</h1>
         <p>
            <a href="{{ url_for('home') }}">Home</a>
-           <a href="{{ url_for('create_myth') }}">Add Myth</a>
-           <a href="{{ url_for('create_location') }}">Add location</a>
+           <a href="{{ url_for('create_myth') }}"> Myth</a>
+           <a href="{{ url_for('create_location') }}"> Location</a>
         </p>
          {% block body%}
          {% endblock body %}

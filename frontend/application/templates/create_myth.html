@@ -2,23 +2,23 @@
 {% block body %}
 
 <form action="/create/myth" method="POST">
-
-    Name:
-    {{ form.name }}
-    <div>
-
-    Character:
-    {{ form.character }}
-    <br>
-
-    Story:
-    {{ form.story }}
-    <br>
-
-    Location:
-    {{ form.location }}
-    <br>   
+<table>
+    <tr>
+        <td>{{ form.name.label }}</td>
+        <td>{{ form.name }}</td>
+    </tr>
+    <tr>
+        <td>{{ form.character.label }}</td>
+        <td>{{ form.character }}</td>
+    </tr>
+    <tr>
+        <td>{{ form.story.label }}</td>
+        <td>{{ form.story }}</td>
+    </tr>
+    
+</table>
     {{form.submit}}
+    {{ form.hidden_tag() }}
 </form>
 
 {% endblock body %}

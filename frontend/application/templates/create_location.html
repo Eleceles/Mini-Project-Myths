@@ -1,15 +1,16 @@
 {% extends "layout.html" %}
 {% block body %}
 
-<div class='form'>
+
 <form action="/create/location" method="POST">
-
-    Name:
-    {{ form.name }}  
-    <br>   
-
+<table>
+<tr>
+    <td>{{ form.name.lable }} </td>
+    <td> {{ form.name }}</td>
+</tr>
+</table>
     {{form.submit}}
+    {{ form.hidden_tag() }}
 </form>
-</div>
 
 {% endblock body %}
