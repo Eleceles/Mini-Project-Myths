@@ -13,3 +13,10 @@ Pytest
 Flask
 Docker/Docker Compose
 MySQL
+
+My Approach:
+I created a simple myths app that allow the user to do the following:
+create a location:
+Name of location
+Create a myth:
+Name, character and story
