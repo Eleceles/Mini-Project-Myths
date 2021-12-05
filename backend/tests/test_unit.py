@@ -10,7 +10,7 @@ test_myth = {
                 "story" : "story"
             }
 
-test_ge_all_myths = {
+test_get_all_myths = {
                 "id" : 2,
                 "name" : "name",
                 "character" : "character",
