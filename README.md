@@ -20,3 +20,5 @@ create a location:
 Name of location
 Create a myth:
 Name, character and story
+
+https://docs.google.com/document/d/1C62tSsEsfhbFRpGM3P6B7gOP2lBxPRHCnsiXFbd5YRI/edit
