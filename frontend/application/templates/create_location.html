@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block body %}
+
+
+<form action="/create/location" method="POST">
+<table>
+<tr>
+    <td>{{ form.name.lable }} </td>
+    <td> {{ form.name }}</td>
+</tr>
+</table>
+    {{form.submit}}
+    {{ form.hidden_tag() }}
+</form>
+
+{% endblock body %}

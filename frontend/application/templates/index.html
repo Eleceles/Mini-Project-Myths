@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block body %}
+    {% for location in locations %}
+
+    <table>
+        <tr>
+        <td><b>Location</b></td>
+        <td>{{ location.name }}</td>
+        </tr> 
+    </table>
+
+    <h3>Myth of {{ location["name"]}}</h3>
+    <table>
+        {% for myth in location.myths%}
+        <tr>
+           <td>{{myth.name}}</td>
+        </tr>
+           <td>{{myth.character}}</td>
+        </tr>
+           <td>{{myth.story}}</td>
+           <div>
+            <a href="{{ url_for('update_myth',id=myth.id) }}">Edit</a>
+            <a href="{{ url_for('delete_myth', id=myth.id) }}">Delete</a>
+        </div>   
+   </table>
+    {%endfor%}
+
+{%endfor%}
+
+{% endblock body %} 
+
